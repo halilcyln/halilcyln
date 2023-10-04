@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+<div class="d-flex justify-content-center mt-4">
+    <div class="card  w-50">
+        <div class="card-body ">
+            <h5 class="card-title"> {{post.title}} </h5>
+            <p class="card-text"> {{post.content|linebreaks}} </p>
+        </div>
+    </div>
+</div>
+<div class="row d-flex justify-content-center mt-4 w-100">
+    <div class="col-6">
+
+        {% for i in form_page %}
+        <div class="card mt-4">
+            <div class="card-body border border-dark rounded-4">
+                <h5 class="card-title"> {{i.full_name}} </h5>
+                <p class="card-text"> {{i.text}} </p>
+                <div class="d-flex justify-content-center">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Name input -->
+<div class="row d-flex justify-content-center mt-4 w-100">
+    <div class="col-4">
+        <form method="POST">
+            {% csrf_token %}
+            <h2>Yorumunuz</h2>
+            {% if  hata %}
+                <p class="text-danger"> {{hata}}  </p>
+            {% endif %}
+            
+            {% if user.is_authenticated  %}
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example1">Name</label>
+                <input name="name" type="text" id="form4Example1" class="form-control border  border-dark rounded-4" />
+            </div>
+                
+            <!-- Message input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example3">Message</label>
+                <textarea name="comment" class="form-control  border border-dark rounded-4" id="form4Example3"
+                    rows="4"></textarea>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Paylaş</button>
+            {% else %}
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example1">Name</label>
+                <input name="name" type="text" id="form4Example1" class="form-control border  border-dark rounded-4" />
+            </div>
+
+              <!-- Message input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example3">Message</label>
+                <textarea name="comment" class="form-control  border border-dark rounded-4" id="form4Example3"
+                    rows="4"></textarea>
+            </div>
+            <!-- Submit button -->
+            <button  type="submit" class="btn btn-primary btn-block mb-4">Paylaş</button>
+            {% endif %}
+                
+          
+        </form>
+    </div>
+</div>
+
+{% endblock body %}
